@@ -16,15 +16,90 @@ REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
 # Artist Tag Database
 ARTIST_TAGS = {
     "drake x travis scott": {
-        "tags": ["#DrakeTypeBeat", "#TravisScottTypeBeat", "#DarkTrap", "#MelodicTrap", "#FLStudio"],
+        "tags": [
+            "#DrakeTypeBeat", "#TravisScottTypeBeat", "#DarkTrap", "#MelodicTrap", "#FLStudio",
+            "#SickoModeTypeBeat", "#HerLossTypeBeat", "#AstroworldTypeBeat", "#UtopiaTypeBeat",
+            "#AmbientTrap", "#RnbTrap", "#DarkMelodicTrap", "#OVOTypeBeat", "#CactusJackTypeBeat",
+            "#DrakeInstrumental", "#TravisScottInstrumental", "#DrakexTravisScott", "#HardTrapBeat",
+            "#TrapBeat2026", "#TypeBeat2026", "#Beatmaker", "#Producer", "#HipHopInstrumental",
+            "#DrakeTypeBeats", "#TravisScottTypeBeats", "#NightVibes"
+        ],
         "genre": "Dark Melodic Trap"
     },
     "lil baby x gunna": {
-        "tags": ["#LilBabyTypeBeat", "#GunnaTypeBeat", "#HardTrap", "#WaveRunner", "#FLStudio"],
+        "tags": [
+            "#LilBabyTypeBeat", "#GunnaTypeBeat", "#HardTrap", "#WaveRunner", "#FLStudio",
+            "#DripHarder", "#GuitarTrap", "#DripTooHard", "#WheezyTypeBeat", "#TurboTypeBeat",
+            "#AtlantaTrap", "#MelodicHardTrap", "#PianoTrap", "#LilBabyInstrumental", "#GunnaInstrumental",
+            "#LilBabyxGunna", "#LilBabyxGunnaTypeBeat", "#HardInstrumental", "#RapBeat",
+            "#TrapBeat2026", "#TypeBeat2026", "#4PFTypeBeat", "#YSLTypeBeat", "#FreeTypeBeat",
+            "#DripTrap", "#Beatmaker"
+        ],
         "genre": "Hard Trap"
     },
+    "ken carson x osamason": {
+        "tags": [
+            "#KenCarsonTypeBeat", "#OsamasonTypeBeat", "#FreeHardLuckiTypeBeat", "#HardLuckiTypeBeat",
+            "#ChiefKeefTypeBeat", "#LuckiTypeBeat", "#VeezeTypeBeat", "#RichAmiriTypeBeat",
+            "#FreeLuckiTypeBeat", "#LuckiBeat", "#KenCarsonXOsamason", "#HardTypeBeat",
+            "#UndergroundTypeBeat", "#MelodicTypeBeat", "#WaveTypeBeat", "#LuckiTypebeet",
+            "#Osamasonbeet", "#HardlukiTypeBeat", "#ChiefeefTypeBeat"
+        ],
+        "genre": "Rage / Opium Trap"
+    },
+    "playboi carti x unotheactivist": {
+        "tags": [
+            "#PlayboiCarti", "#UnoTheActivist", "#TypeBeat", "#TrapBeat", "#RapInstrumental",
+            "#UndergroundHipHop", "#MelodicRap", "#NewWave", "#AtlantaRap", "#Vibes",
+            "#Beatmaker", "#HipHopBeats", "#FreeTypeBeat", "#HardBeats", "#YoungRapper",
+            "#MusicProduction", "#PlayboiTyte", "#Unoartivist", "#Unotheactivistt",
+            "#PlayboiCartii", "#AWGE", "#Alanta"
+        ],
+        "genre": "Pluggnb / Minimalist Trap"
+    },
+    "future x southside": {
+        "tags": [
+            "#FutureTypeBeat", "#SouthsideTypeBeat", "#808Mafia", "#DarkTrap", "#HardTrap", "#FLStudio",
+            "#FutureSouthsideTypeBeat", "#808MafiaTypeBeat", "#AtlantaTrap", "#HardFutureTypeBeat",
+            "#DarkTrapBeat", "#TrapInstrumental", "#FutureInstrumental", "#SouthsideOnTheBeat",
+            "#MetroBoominTypeBeat", "#DirtySpriteTypeBeat", "#TypeBeat2026", "#FreeTypeBeat"
+        ],
+        "genre": "Dark Atlanta Trap"
+    },
+    "future x lil uzi vert": {
+        "tags": [
+            "#FutureTypeBeat", "#LilUziVertTypeBeat", "#PlutoxBabyPluto", "#MelodicTrap", "#SpaceTrap", "#FLStudio",
+            "#LilUziTypeBeat", "#FuturexLilUzi", "#FuturisticBeat", "#SynthTrap", "#HyperpopTrap",
+            "#MelodicRapBeat", "#UziTypeBeat", "#FutureInstrumental", "#LilUziInstrumental",
+            "#FreeTypeBeat", "#TrapBeat2026", "#SpaceyTrap"
+        ],
+        "genre": "Futuristic Melodic Trap"
+    },
+    "future x young thug": {
+        "tags": [
+            "#FutureTypeBeat", "#YoungThugTypeBeat", "#SuperSlimey", "#MelodicTrap", "#AtlantaTrap", "#FLStudio",
+            "#FuturexYoungThug", "#YoungThugInstrumental", "#FutureInstrumental", "#YSLTypeBeat",
+            "#FreeThuggerTypeBeat", "#FreeTypeBeat", "#TrapInstrumental", "#SlimeTypeBeat",
+            "#TypeBeat2026", "#AtlantaTypeBeat"
+        ],
+        "genre": "Melodic Trap"
+    },
+    "gunna x young thug": {
+        "tags": [
+            "#GunnaTypeBeat", "#YoungThugTypeBeat", "#YSLTypeBeat", "#DripTrap", "#GuitarTrap", "#FLStudio",
+            "#GunnaxYoungThug", "#SlimeLanguage", "#MelodicTrapBeat", "#WheezyTypeBeat",
+            "#TurboTypeBeat", "#YSLBeat", "#YoungThugInstrumental", "#GunnaInstrumental",
+            "#FreeTypeBeat", "#GuitarMelodicTrap", "#TypeBeat2026"
+        ],
+        "genre": "Drip / Melodic Trap"
+    },
     "default": {
-        "tags": ["#TypeBeat", "#Instrumental", "#BeatStash", "#FLStudio", "#NewBeat"],
+        "tags": [
+            "#TypeBeat", "#Instrumental", "#BeatStash", "#FLStudio", "#NewBeat",
+            "#FreeTypeBeat", "#TrapBeat", "#RapBeat", "#Beatmaker", "#Producer",
+            "#MusicProducer", "#TypeBeats", "#HipHopBeats", "#InstrumentalBeat",
+            "#TypeBeat2026", "#FreeBeat", "#BuyBeats", "#BeatStore"
+        ],
         "genre": "Instrumental"
     }
 }
@@ -64,38 +139,82 @@ def parse_filename(filename):
     name_without_ext = os.path.splitext(filename)[0]
     
     if " type beat - " in name_without_ext.lower():
-        # Split by ' type beat - ' case-insensitively
         parts = re.split(r' type beat - ', name_without_ext, flags=re.IGNORECASE)
         artist_combo = parts[0].strip().lower()
         beat_title = parts[1].strip()
     else:
-        # Fallback if naming convention varies slightly
         artist_combo = "default"
         beat_title = name_without_ext.strip()
         
     return artist_combo, beat_title
 
 def generate_metadata(artist_combo, beat_title):
-    # Match artist tags or fall back to default
-    config = ARTIST_TAGS.get(artist_combo, ARTIST_TAGS["default"])
-    
-    title = f"{artist_combo.title()} Type Beat - \"{beat_title}\" | Free Instrumental"
+    """
+    Intelligently generates metadata, handling exact matches, reversed artist combinations,
+    and individual artist fallbacks by mixing tags dynamically.
+    """
+    # 1. Check for an exact match first
+    if artist_combo in ARTIST_TAGS:
+        config = ARTIST_TAGS[artist_combo]
+    else:
+        # 2. Check for reversed combination (e.g. 'travis scott x future')
+        artists = [a.strip() for a in artist_combo.split('x')]
+        reversed_combo = " x ".join(reversed(artists))
+        
+        if reversed_combo in ARTIST_TAGS:
+            config = ARTIST_TAGS[reversed_combo]
+            print(f"Matched reversed artist combo: '{reversed_combo}'")
+        else:
+            # 3. Dynamic Individual Fallback: Collect tags for each artist found in our database
+            collected_tags = set(ARTIST_TAGS["default"]["tags"])
+            matched_genres = []
+            
+            for artist in artists:
+                found_match = False
+                for key, data in ARTIST_TAGS.items():
+                    if artist in key and key != "default":
+                        collected_tags.update(data["tags"])
+                        matched_genres.append(data["genre"])
+                        found_match = True
+                
+                # If individual artist isn't explicitly in keys, generate a clean tag dynamically
+                if not found_match and len(artist) > 1:
+                    formatted_tag = f"#{artist.title().replace(' ', '')}TypeBeat"
+                    collected_tags.add(formatted_tag)
+
+            genre = " / ".join(list(set(matched_genres))) if matched_genres else ARTIST_TAGS["default"]["genre"]
+            config = {
+                "tags": list(collected_tags),
+                "genre": genre
+            }
+            print(f"Dynamic fallback tags generated for custom combination: '{artist_combo}'")
+
+    title = f"{artist_combo.title()} Type Beat - \"{beat_title}\" | the random stash free beat"
     
     description = (
         f"🎧 Stream & download '{beat_title}' ({config['genre']}).\n\n"
         f"Produced by $oulesssK.\n"
-        f"📩 For leasing or custom beats: Check channel info.\n\n"
+        f"📩 For leasing or custom beats: dm @soulesssk on IG or @1soulesssk on tiktok.\n\n"
         f"{' '.join(config['tags'])}"
     )
     
     return title, description, config['tags']
 
-def render_video(audio_path, image_path, output_path="output.mp4"):
+def render_video(audio_path, image_path, output_video_path="final_output.mp4"):
     print("Rendering video with FFmpeg...")
     cmd = [
-        "ffmpeg", "-loop", "1", "-i", image_path, "-i", audio_path,
-        "-c:v", "libx264", "-tune", "stillimage", "-c:a", "aac", "-b:a", "192k",
-        "-shortest", "-pix_fmt", "yuv420p", output_path, "-y"
+        'ffmpeg', '-y',
+        '-loop', '1',
+        '-i', image_path,
+        '-i', audio_path,
+        '-vf', 'scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2',
+        '-c:v', 'libx264',
+        '-tune', 'stillimage',
+        '-c:a', 'aac',
+        '-b:a', '192k',
+        '-pix_fmt', 'yuv420p',
+        '-shortest',
+        output_video_path
     ]
     subprocess.run(cmd, check=True)
     print("Video rendered successfully.")
@@ -156,7 +275,7 @@ def main():
     download_file(drive_service, chosen_beat['id'], audio_local)
     download_file(drive_service, matched_image['id'], image_local)
 
-    # Generate title, description, and tags
+    # Generate title, description, and tags dynamically
     title, description, tags = generate_metadata(artist_combo, beat_title)
 
     # Render video & upload
