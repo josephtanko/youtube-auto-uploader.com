@@ -2,7 +2,7 @@ name: Daily Type Beat Auto-Uploader
 
 on:
   schedule:
-    - cron: '0 8 * * *'  # Runs every day at 8:00 AM UTC
+    - cron: '0 1 * * *'  # Runs every day at 1:00 AM UTC 7PM US central timezone
   workflow_dispatch:      # Allows manual testing anytime from GitHub
 
 jobs:
