@@ -1,0 +1,32 @@
+name: Daily Type Beat Auto-Uploader
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs every day at 8:00 AM UTC
+  workflow_dispatch:      # Allows manual testing anytime from GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install System FFmpeg & Python Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          pip install --upgrade google-api-python-client google-auth-oauthlib google-auth-httplib2
+
+      - name: Run Auto-Upload Script
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
+        run: |
+          python upload.py
