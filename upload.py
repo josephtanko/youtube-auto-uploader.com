@@ -245,7 +245,13 @@ def main():
     files = list_drive_files(drive_service)
     
     audio_files = [f for f in files if f['name'].lower().endswith(('.mp3', '.wav', '.m4a'))]
-    image_files = {os.path.splitext(f['name'])[0].lower(): f for f in files if f['name'].lower().endswith(('.jpg', '.jpeg', '.png'))}
+    image_files = {}
+    for f in files:
+        if f['name'].lower().endswith(('.jpg', '.jpeg', '.png')):
+            key = os.path.splitext(f['name'])[0].lower()
+            if key not in image_files:
+                image_files[key] = []
+            image_files[key].append(f)
 
     if not audio_files:
         print("No beats found in the Google Drive folder. Exiting.")
@@ -260,14 +266,19 @@ def main():
     print(f"Detected Artist Combo: {artist_combo} | Beat Title: {beat_title}")
 
     # Match image by artist combo name (e.g., 'drake x travis scott.jpg')
-    matched_image = image_files.get(artist_combo)
-    if not matched_image and image_files:
-        # Fallback to any random image if exact artist art isn't found
-        matched_image = random.choice(list(image_files.values()))
-        print(f"Exact cover art match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
-    elif not image_files:
-        print("Error: No images found in Google Drive folder.")
-        return
+    matched_image_list = image_files.get(artist_combo)
+if matched_image_list:
+    # Pick a random image from the list if there are multiple variations!
+    matched_image = random.choice(matched_image_list)
+    print(f"Matched cover art for '{artist_combo}' (Selected: {matched_image['name']})")
+elif image_files:
+    # Fallback to any random image if exact artist art isn't found
+    all_images = [img for sublist in image_files.values() for img in sublist]
+    matched_image = random.choice(all_images)
+    print(f"Exact cover art match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
+else:
+    print("Error: No images found in Google Drive folder.")
+    return
 
     # Download files locally
     audio_local = "input_audio.mp3"
