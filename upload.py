@@ -13,94 +13,95 @@ CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
 
-# Artist Tag Database
+# Artist Tag Database (808 Mafia Theme)
 ARTIST_TAGS = {
-    "drake x travis scott": {
+    "808 mafia x drake": {
         "tags": [
-            "#DrakeTypeBeat", "#TravisScottTypeBeat", "#DarkTrap", "#MelodicTrap", "#FLStudio",
+            "#808MafiaTypeBeat", "#SouthsideTypeBeat", "#DrakeTypeBeat", "#TravisScottTypeBeat", 
+            "#808Mafia", "#Southside", "#DarkTrap", "#MelodicTrap", "#FLStudio",
             "#SickoModeTypeBeat", "#HerLossTypeBeat", "#AstroworldTypeBeat", "#UtopiaTypeBeat",
             "#AmbientTrap", "#RnbTrap", "#DarkMelodicTrap", "#OVOTypeBeat", "#CactusJackTypeBeat",
-            "#DrakeInstrumental", "#TravisScottInstrumental", "#DrakexTravisScott", "#HardTrapBeat",
+            "#DrakeInstrumental", "#TravisScottInstrumental", "#HardTrapBeat",
             "#TrapBeat2026", "#TypeBeat2026", "#Beatmaker", "#Producer", "#HipHopInstrumental",
-            "#DrakeTypeBeats", "#TravisScottTypeBeats", "#NightVibes"
+            "#DrakeTypeBeats", "#NightVibes", "#TM88TypeBeat"
         ],
-        "genre": "Dark Melodic Trap"
+        "genre": "808 Mafia Dark Melodic Trap"
     },
-    "lil baby x gunna": {
+    "808 mafia x lil baby": {
         "tags": [
-            "#LilBabyTypeBeat", "#GunnaTypeBeat", "#HardTrap", "#WaveRunner", "#FLStudio",
-            "#DripHarder", "#GuitarTrap", "#DripTooHard", "#WheezyTypeBeat", "#TurboTypeBeat",
-            "#AtlantaTrap", "#MelodicHardTrap", "#PianoTrap", "#LilBabyInstrumental", "#GunnaInstrumental",
-            "#LilBabyxGunna", "#LilBabyxGunnaTypeBeat", "#HardInstrumental", "#RapBeat",
+            "#808MafiaTypeBeat", "#LilBabyTypeBeat", "#GunnaTypeBeat", "#808Mafia", "#Southside", 
+            "#HardTrap", "#WaveRunner", "#FLStudio", "#DripHarder", "#GuitarTrap", "#DripTooHard", 
+            "#WheezyTypeBeat", "#TurboTypeBeat", "#AtlantaTrap", "#MelodicHardTrap", "#PianoTrap", 
+            "#LilBabyInstrumental", "#GunnaInstrumental", "#HardInstrumental", "#RapBeat",
             "#TrapBeat2026", "#TypeBeat2026", "#4PFTypeBeat", "#YSLTypeBeat", "#FreeTypeBeat",
-            "#DripTrap", "#Beatmaker"
+            "#DripTrap", "#Beatmaker", "#TM88"
         ],
-        "genre": "Hard Trap"
+        "genre": "808 Mafia Hard Trap"
     },
-    "ken carson x osamason": {
+    "808 mafia x ken carson": {
         "tags": [
-            "#KenCarsonTypeBeat", "#OsamasonTypeBeat", "#FreeHardLuckiTypeBeat", "#HardLuckiTypeBeat",
-            "#ChiefKeefTypeBeat", "#LuckiTypeBeat", "#VeezeTypeBeat", "#RichAmiriTypeBeat",
-            "#FreeLuckiTypeBeat", "#LuckiBeat", "#KenCarsonXOsamason", "#HardTypeBeat",
-            "#UndergroundTypeBeat", "#MelodicTypeBeat", "#WaveTypeBeat", "#LuckiTypebeet",
-            "#Osamasonbeet", "#HardlukiTypeBeat", "#ChiefeefTypeBeat"
+            "#808MafiaTypeBeat", "#KenCarsonTypeBeat", "#OsamasonTypeBeat", "#808Mafia", "#Southside",
+            "#FreeHardLuckiTypeBeat", "#HardLuckiTypeBeat", "#ChiefKeefTypeBeat", "#LuckiTypeBeat", 
+            "#VeezeTypeBeat", "#RichAmiriTypeBeat", "#FreeLuckiTypeBeat", "#LuckiBeat", 
+            "#HardTypeBeat", "#UndergroundTypeBeat", "#MelodicTypeBeat", "#WaveTypeBeat", 
+            "#LuckiTypebeet", "#Osamasonbeet", "#HardlukiTypeBeat", "#ChiefeefTypeBeat", "#RageBeat"
         ],
-        "genre": "Rage / Opium Trap"
+        "genre": "808 Mafia Rage / Opium Trap"
     },
-    "playboi carti x unotheactivist": {
+    "808 mafia x playboi carti": {
         "tags": [
-            "#PlayboiCarti", "#UnoTheActivist", "#TypeBeat", "#TrapBeat", "#RapInstrumental",
-            "#UndergroundHipHop", "#MelodicRap", "#NewWave", "#AtlantaRap", "#Vibes",
-            "#Beatmaker", "#HipHopBeats", "#FreeTypeBeat", "#HardBeats", "#YoungRapper",
-            "#MusicProduction", "#PlayboiTyte", "#Unoartivist", "#Unotheactivistt",
-            "#PlayboiCartii", "#AWGE", "#Alanta"
+            "#808MafiaTypeBeat", "#PlayboiCartiTypeBeat", "#808Mafia", "#Southside", "#TypeBeat", 
+            "#TrapBeat", "#RapInstrumental", "#UndergroundHipHop", "#MelodicRap", "#NewWave", 
+            "#AtlantaRap", "#Vibes", "#Beatmaker", "#HipHopBeats", "#FreeTypeBeat", "#HardBeats", 
+            "#YoungRapper", "#MusicProduction", "#PlayboiTyte", "#AWGE", "#Alanta", "#TM88"
         ],
-        "genre": "Pluggnb / Minimalist Trap"
+        "genre": "808 Mafia Pluggnb / Minimalist Trap"
     },
-    "future x southside": {
+    "808 mafia x future": {
         "tags": [
-            "#FutureTypeBeat", "#SouthsideTypeBeat", "#808Mafia", "#DarkTrap", "#HardTrap", "#FLStudio",
-            "#FutureSouthsideTypeBeat", "#808MafiaTypeBeat", "#AtlantaTrap", "#HardFutureTypeBeat",
-            "#DarkTrapBeat", "#TrapInstrumental", "#FutureInstrumental", "#SouthsideOnTheBeat",
-            "#MetroBoominTypeBeat", "#DirtySpriteTypeBeat", "#TypeBeat2026", "#FreeTypeBeat"
+            "#808MafiaTypeBeat", "#FutureTypeBeat", "#SouthsideTypeBeat", "#808Mafia", "#Southside", 
+            "#TM88", "#DarkTrap", "#HardTrap", "#FLStudio", "#FutureSouthsideTypeBeat", 
+            "#808MafiaTypeBeat", "#AtlantaTrap", "#HardFutureTypeBeat", "#DarkTrapBeat", 
+            "#TrapInstrumental", "#FutureInstrumental", "#SouthsideOnTheBeat", "#MetroBoominTypeBeat", 
+            "#DirtySpriteTypeBeat", "#TypeBeat2026", "#FreeTypeBeat"
         ],
-        "genre": "Dark Atlanta Trap"
+        "genre": "808 Mafia Dark Atlanta Trap"
     },
-    "future x lil uzi vert": {
+    "808 mafia x lil uzi vert": {
         "tags": [
-            "#FutureTypeBeat", "#LilUziVertTypeBeat", "#PlutoxBabyPluto", "#MelodicTrap", "#SpaceTrap", "#FLStudio",
-            "#LilUziTypeBeat", "#FuturexLilUzi", "#FuturisticBeat", "#SynthTrap", "#HyperpopTrap",
-            "#MelodicRapBeat", "#UziTypeBeat", "#FutureInstrumental", "#LilUziInstrumental",
-            "#FreeTypeBeat", "#TrapBeat2026", "#SpaceyTrap"
+            "#808MafiaTypeBeat", "#FutureTypeBeat", "#LilUziVertTypeBeat", "#808Mafia", "#Southside", 
+            "#MelodicTrap", "#SpaceTrap", "#FLStudio", "#LilUziTypeBeat", "#FuturisticBeat", 
+            "#SynthTrap", "#HyperpopTrap", "#MelodicRapBeat", "#UziTypeBeat", "#FutureInstrumental", 
+            "#LilUziInstrumental", "#FreeTypeBeat", "#TrapBeat2026", "#SpaceyTrap"
         ],
-        "genre": "Futuristic Melodic Trap"
+        "genre": "808 Mafia Futuristic Melodic Trap"
     },
-    "future x young thug": {
+    "808 mafia x young thug": {
         "tags": [
-            "#FutureTypeBeat", "#YoungThugTypeBeat", "#SuperSlimey", "#MelodicTrap", "#AtlantaTrap", "#FLStudio",
-            "#FuturexYoungThug", "#YoungThugInstrumental", "#FutureInstrumental", "#YSLTypeBeat",
-            "#FreeThuggerTypeBeat", "#FreeTypeBeat", "#TrapInstrumental", "#SlimeTypeBeat",
-            "#TypeBeat2026", "#AtlantaTypeBeat"
+            "#808MafiaTypeBeat", "#FutureTypeBeat", "#YoungThugTypeBeat", "#808Mafia", "#Southside", 
+            "#SuperSlimey", "#MelodicTrap", "#AtlantaTrap", "#FLStudio", "#YoungThugInstrumental", 
+            "#FutureInstrumental", "#YSLTypeBeat", "#FreeThuggerTypeBeat", "#FreeTypeBeat", 
+            "#TrapInstrumental", "#SlimeTypeBeat", "#TypeBeat2026", "#AtlantaTypeBeat"
         ],
-        "genre": "Melodic Trap"
+        "genre": "808 Mafia Melodic Trap"
     },
-    "gunna x young thug": {
+    "808 mafia x gunna": {
         "tags": [
-            "#GunnaTypeBeat", "#YoungThugTypeBeat", "#YSLTypeBeat", "#DripTrap", "#GuitarTrap", "#FLStudio",
-            "#GunnaxYoungThug", "#SlimeLanguage", "#MelodicTrapBeat", "#WheezyTypeBeat",
-            "#TurboTypeBeat", "#YSLBeat", "#YoungThugInstrumental", "#GunnaInstrumental",
-            "#FreeTypeBeat", "#GuitarMelodicTrap", "#TypeBeat2026"
+            "#808MafiaTypeBeat", "#GunnaTypeBeat", "#YoungThugTypeBeat", "#808Mafia", "#Southside", 
+            "#YSLTypeBeat", "#DripTrap", "#GuitarTrap", "#FLStudio", "#SlimeLanguage", 
+            "#MelodicTrapBeat", "#WheezyTypeBeat", "#TurboTypeBeat", "#YSLBeat", 
+            "#YoungThugInstrumental", "#GunnaInstrumental", "#FreeTypeBeat", "#GuitarMelodicTrap"
         ],
-        "genre": "Drip / Melodic Trap"
+        "genre": "808 Mafia Drip / Melodic Trap"
     },
     "default": {
         "tags": [
-            "#TypeBeat", "#Instrumental", "#BeatStash", "#FLStudio", "#NewBeat",
-            "#FreeTypeBeat", "#TrapBeat", "#RapBeat", "#Beatmaker", "#Producer",
-            "#MusicProducer", "#TypeBeats", "#HipHopBeats", "#InstrumentalBeat",
-            "#TypeBeat2026", "#FreeBeat", "#BuyBeats", "#BeatStore"
+            "#808MafiaTypeBeat", "#SouthsideTypeBeat", "#TypeBeat", "#Instrumental", "#BeatStash", 
+            "#FLStudio", "#NewBeat", "#FreeTypeBeat", "#TrapBeat", "#RapBeat", "#Beatmaker", 
+            "#Producer", "#MusicProducer", "#TypeBeats", "#HipHopBeats", "#InstrumentalBeat", 
+            "#TypeBeat2026", "#FreeBeat", "#BuyBeats", "#BeatStore", "#808Mafia"
         ],
-        "genre": "Instrumental"
+        "genre": "808 Mafia Instrumental"
     }
 }
 
@@ -133,8 +134,8 @@ def delete_drive_file(service, file_id):
 
 def parse_filename(filename):
     """
-    Parses: 'Drake x Travis Scott type beat - Midnight.mp3'
-    Returns: artist_combo ('drake x travis scott'), beat_title ('Midnight')
+    Parses: '808 mafia x drake type beat - Midnight.mp3'
+    Returns: artist_combo ('808 mafia x drake'), beat_title ('Midnight')
     """
     name_without_ext = os.path.splitext(filename)[0]
     
@@ -151,13 +152,13 @@ def parse_filename(filename):
 def generate_metadata(artist_combo, beat_title):
     """
     Intelligently generates metadata, handling exact matches, reversed artist combinations,
-    and individual artist fallbacks by mixing tags dynamically.
+    and individual artist fallbacks by mixing tags dynamically under the 808 Mafia theme.
     """
     # 1. Check for an exact match first
     if artist_combo in ARTIST_TAGS:
         config = ARTIST_TAGS[artist_combo]
     else:
-        # 2. Check for reversed combination (e.g. 'travis scott x future')
+        # 2. Check for reversed combination (e.g. 'drake x 808 mafia')
         artists = [a.strip() for a in artist_combo.split('x')]
         reversed_combo = " x ".join(reversed(artists))
         
