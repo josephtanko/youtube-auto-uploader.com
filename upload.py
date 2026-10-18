@@ -15,17 +15,35 @@ REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
 
 # Artist Tag Database (808 Mafia Theme)
 ARTIST_TAGS = {
-    "808 mafia x drake": {
+    "808 mafia x moneybagg yo": {
         "tags": [
-            "#808MafiaTypeBeat", "#SouthsideTypeBeat", "#DrakeTypeBeat", "#TravisScottTypeBeat", 
-            "#808Mafia", "#Southside", "#DarkTrap", "#MelodicTrap", "#FLStudio",
-            "#SickoModeTypeBeat", "#HerLossTypeBeat", "#AstroworldTypeBeat", "#UtopiaTypeBeat",
-            "#AmbientTrap", "#RnbTrap", "#DarkMelodicTrap", "#OVOTypeBeat", "#CactusJackTypeBeat",
-            "#DrakeInstrumental", "#TravisScottInstrumental", "#HardTrapBeat",
-            "#TrapBeat2026", "#TypeBeat2026", "#Beatmaker", "#Producer", "#HipHopInstrumental",
-            "#DrakeTypeBeats", "#NightVibes", "#TM88TypeBeat"
+            "#808MafiaTypeBeat", "#MoneybaggYoTypeBeat", "#SouthsideTypeBeat", "#808Mafia", "#Southside",
+            "#MemphisTrap", "#ESTGeeTypeBeat", "#KeyGlockTypeBeat", "#PoohShiestyTypeBeat", "#HardTrap",
+            "#HeavyTrap", "#StreetTrap", "#42DuggTypeBeat", "#YoGottiTypeBeat", "#MoneybaggYoInstrumental",
+            "#HardInstrumental", "#FLStudio", "#TrapBeat2026", "#TypeBeat2026", "#Beatmaker",
+            "#RapBeat", "#DarkTrapBeat", "#TM88TypeBeat", "#FreeTypeBeat", "#HardRapBeat"
         ],
-        "genre": "808 Mafia Dark Melodic Trap"
+        "genre": "808 Mafia Memphis Street Trap"
+    },
+    "808 mafia x osamason": {
+        "tags": [
+            "#808MafiaTypeBeat", "#OsamasonTypeBeat", "#KenCarsonTypeBeat", "#808Mafia", "#Southside",
+            "#RageBeat", "#UndergroundTypeBeat", "#FlexMusic", "#OpiumTypeBeat", "#HardRageBeat",
+            "#CheTypeBeat", "#NettspendTypeBeat", "#RichAmiriTypeBeat", "#OsamasonInstrumental",
+            "#FLStudio", "#SynthTrap", "#DarkRage", "#HyperpopTrap", "#TypeBeat2026",
+            "#TrapBeat2026", "#FreeTypeBeat", "#Beatmaker", "#OsamasonBeats"
+        ],
+        "genre": "808 Mafia Underground Rage Trap"
+    },
+    "808 mafia x lil durk": {
+        "tags": [
+            "#808MafiaTypeBeat", "#LilDurkTypeBeat", "#SouthsideTypeBeat", "#808Mafia", "#Southside",
+            "#OTFTypeBeat", "#KingVonTypeBeat", "#ChicagoDrill", "#DarkAtlantaTrap", "#ChiraqTypeBeat",
+            "#FutureTypeBeat", "#ATLJacobTypeBeat", "#LilDurkInstrumental", "#OTFBeats", "#HardDrillBeat",
+            "#HardTrap", "#MelodicDrill", "#TrapBeat2026", "#TypeBeat2026", "#FLStudio",
+            "#Beatmaker", "#Producer", "#FreeTypeBeat", "#RapInstrumental"
+        ],
+        "genre": "808 Mafia OTF Chicago Trap / Drill"
     },
     "808 mafia x lil baby": {
         "tags": [
