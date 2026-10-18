@@ -245,6 +245,8 @@ def main():
     files = list_drive_files(drive_service)
     
     audio_files = [f for f in files if f['name'].lower().endswith(('.mp3', '.wav', '.m4a'))]
+    
+    # Collect images into lists grouped by base name (supports variant naming like v1, v2)
     image_files = {}
     for f in files:
         if f['name'].lower().endswith(('.jpg', '.jpeg', '.png')):
@@ -265,20 +267,22 @@ def main():
     artist_combo, beat_title = parse_filename(chosen_beat['name'])
     print(f"Detected Artist Combo: {artist_combo} | Beat Title: {beat_title}")
 
-    # Match image by artist combo name (e.g., 'drake x travis scott.jpg')
-    matched_image_list = image_files.get(artist_combo)
-if matched_image_list:
-    # Pick a random image from the list if there are multiple variations!
-    matched_image = random.choice(matched_image_list)
-    print(f"Matched cover art for '{artist_combo}' (Selected: {matched_image['name']})")
-elif image_files:
-    # Fallback to any random image if exact artist art isn't found
-    all_images = [img for sublist in image_files.values() for img in sublist]
-    matched_image = random.choice(all_images)
-    print(f"Exact cover art match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
-else:
-    print("Error: No images found in Google Drive folder.")
-    return
+    # Match image by artist combo prefix (supports variants starting with the artist combo)
+    matching_variants = [
+        img for key, img_list in image_files.items() if key.startswith(artist_combo) for img in img_list
+    ]
+
+    if matching_variants:
+        matched_image = random.choice(matching_variants)
+        print(f"Matched variant cover art for '{artist_combo}' (Selected: {matched_image['name']})")
+    elif image_files:
+        # Fallback to any random image if no matching art starts with the artist combo
+        all_images = [img for sublist in image_files.values() for img in sublist]
+        matched_image = random.choice(all_images)
+        print(f"Exact prefix match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
+    else:
+        print("Error: No images found in Google Drive folder.")
+        return
 
     # Download files locally
     audio_local = "input_audio.mp3"
