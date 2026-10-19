@@ -16,7 +16,6 @@ CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
 # GEMINI_API_KEY -> genai.Client()
 
-# Artist Tag Database
 ARTIST_TAGS = {
     "808 mafia x moneybagg yo": {
         "tags": [
@@ -170,14 +169,13 @@ def get_optimized_title(raw_context: str) -> str:
     client = genai.Client()
     
     system_instruction = (
-        "You are VidIQ - an expert YouTube SEO engine. Lookup and generate current, optimized YouTube type beat titles from the raw file name"
-        "titles must have high-CTR, & be click-compelling. Artists in the raw file name must be preserved in the title conjoined with an 'x', e.g 'Artist 1' x 'Artist 2'\n"
+        "You are VidIQ - an expert YouTube SEO engine. Generate optimized YouTube type beat titles for an 808 mafia producers type beat channel from the raw file name"
+        "titles must have high-CTR, & be click-compelling. All artists mentioned in the raw file name must be preserved in the final title\n"
         "Strict operational rules:\n"
         "1. Length: The final string must be under 60 characters to prevent truncation on mobile screens.\n"
-        "2. Keywords: DO NOT IGNORE any artist on the raw file name, position the highest-volume search keyword (artist) at the absolute beginning of the title.\n"
-        "3. Engagement: End with a short but engaging genre descriptive keyword that tells the viewer mood of the beat, you can infere this from the name of the instrumental.\n"
-        "4. Output format: Return ONLY the raw final title text string. Do not wrap it in quotes, do not include markdown, and do not provide conversational text or explanations."
-    )
+        "2. Keywords: DO NOT IGNORE any artist in the raw file name, position the highest-volume search keyword at the beginning of the title.\n"
+        "3. Engagement: Always create highly engaging hooks, for example you can add 'prod by $oulesss(808 mafia)' at the end of a title or start with '808 mafia producer made...type beat', get creative but always personalize the producer to at least one of the artistes stated in the raw file name.\n"
+        "4. Output format: Return ONLY the raw final title text string. Do not wrap it in quotes, do not include markdown, and do not provide conversational text or explanations.")
     
     try:
         response = client.models.generate_content(
@@ -194,11 +192,9 @@ def get_optimized_title(raw_context: str) -> str:
         return raw_context[:60]
 
 def generate_metadata(artist_combo, beat_title):
-    # 1. Check for an exact match first
     if artist_combo in ARTIST_TAGS:
         config = ARTIST_TAGS[artist_combo]
     else:
-        # 2. Check for reversed combination
         artists = [a.strip() for a in artist_combo.split('x')]
         reversed_combo = " x ".join(reversed(artists))
         
@@ -206,7 +202,6 @@ def generate_metadata(artist_combo, beat_title):
             config = ARTIST_TAGS[reversed_combo]
             print(f"Matched reversed artist combo: '{reversed_combo}'")
         else:
-            # 3. Dynamic Individual Fallback
             collected_tags = set(ARTIST_TAGS["default"]["tags"])
             matched_genres = []
             
@@ -229,19 +224,19 @@ def generate_metadata(artist_combo, beat_title):
             }
             print(f"Dynamic fallback tags generated for custom combination: '{artist_combo}'")
 
-    # Base raw title string constructed from parsed filename components
+
     raw_base_title = f"{artist_combo.title()} Type Beat - \"{beat_title}\""
     
-    # Pass the raw string through our AI title optimizer (with automatic fallback built-in)
+
     print("Optimizing video title with Gemini 2.5 Flash...")
     optimized_core_title = get_optimized_title(raw_base_title)
     
-    # Append branding or suffix pipeline requirements cleanly
+
     title = f"(free) {optimized_core_title}"
     
     description = (
         f"🎧 Name: '{beat_title}' ({config['genre']}).\n\n"
-        f"Produced by $oulesssK.\n"
+        f"Produced by $oulesss(808 mafia).\n"
         f"📩 For leasing or custom beats: dm @soulesssk on IG or @1soulesssk on tiktok.\n\n"
         f"{' '.join(config['tags'])}"
     )
@@ -306,15 +301,15 @@ def main():
         print("No beats found in the Google Drive folder. Exiting.")
         return
 
-    # Pick ONE random beat
+  
     chosen_beat = random.choice(audio_files)
     print(f"Selected beat file: {chosen_beat['name']}")
 
-    # Parse artist combination and title from filename
+
     artist_combo, beat_title = parse_filename(chosen_beat['name'])
     print(f"Detected Artist Combo: {artist_combo} | Beat Title: {beat_title}")
 
-    # Match image by artist combo prefix (supports variants starting with the artist combo)
+
     matching_variants = [
         img for key, img_list in image_files.items() if key.startswith(artist_combo) for img in img_list
     ]
@@ -323,7 +318,7 @@ def main():
         matched_image = random.choice(matching_variants)
         print(f"Matched variant cover art for '{artist_combo}' (Selected: {matched_image['name']})")
     elif image_files:
-        # Fallback to any random image if no matching art starts with the artist combo
+
         all_images = [img for sublist in image_files.values() for img in sublist]
         matched_image = random.choice(all_images)
         print(f"Exact prefix match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
@@ -331,21 +326,21 @@ def main():
         print("Error: No images found in Google Drive folder.")
         return
 
-    # Download files locally
+
     audio_local = "input_audio.mp3"
     image_local = "input_image.jpg"
     download_file(drive_service, chosen_beat['id'], audio_local)
     download_file(drive_service, matched_image['id'], image_local)
 
-    # Generate title, description, and tags dynamically (now with AI title optimization built-in)
+
     title, description, tags = generate_metadata(artist_combo, beat_title)
 
-    # Render video & upload
+
     output_video = "final_output.mp4"
     render_video(audio_local, image_local, output_video)
     upload_to_youtube(youtube_service, output_video, title, description, tags)
 
-    # Clean up posted beat from Drive
+
     delete_drive_file(drive_service, chosen_beat['id'])
     print("Workflow finished successfully!")
 
