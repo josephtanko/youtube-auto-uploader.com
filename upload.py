@@ -6,12 +6,15 @@ import io
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
+from google import genai
+from google.genai import types
 
 # Environment Variables
 DRIVE_FOLDER_ID = os.environ.get("DRIVE_FOLDER_ID")
 CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
+# GEMINI_API_KEY is automatically picked up by genai.Client()
 
 # Artist Tag Database (808 Mafia Theme)
 ARTIST_TAGS = {
@@ -152,8 +155,8 @@ def delete_drive_file(service, file_id):
 
 def parse_filename(filename):
     """
-    Parses: '808 mafia x drake type beat - Midnight.mp3'
-    Returns: artist_combo ('808 mafia x drake'), beat_title ('Midnight')
+    Parses: '808 mafia x moneybagg yo type beat - Midnight.mp3'
+    Returns: artist_combo ('808 mafia x moneybagg yo'), beat_title ('Midnight')
     """
     name_without_ext = os.path.splitext(filename)[0]
     
@@ -167,6 +170,37 @@ def parse_filename(filename):
         
     return artist_combo, beat_title
 
+def get_optimized_title(raw_context: str) -> str:
+    """
+    Acts as our automated metadata optimizer. Passes the raw video name or 
+    topic to Gemini 2.5 Flash and returns an optimized, high-CTR YouTube title.
+    """
+    client = genai.Client()
+    
+    system_instruction = (
+        "You are an expert YouTube SEO engine. Optimize raw video topics or file names "
+        "into high-CTR, click-compelling titles.\n"
+        "Strict operational rules:\n"
+        "1. Length: The final string must be under 60 characters to prevent truncation on mobile screens.\n"
+        "2. Keyword Placement: Position the highest-volume search keyword at the absolute beginning of the title.\n"
+        "3. Engagement: End with a highly engaging psychological trigger, curiosity gap, or hook.\n"
+        "4. Output format: Return ONLY the raw final title text string. Do not wrap it in quotes, do not include markdown, and do not provide conversational text or explanations."
+    )
+    
+    try:
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=f"Optimize this raw video context: {raw_context}",
+            config=types.GenerateContentConfig(
+                system_instruction=system_instruction,
+                temperature=0.7
+            )
+        )
+        return response.text.strip()
+    except Exception as e:
+        print(f"AI Optimization failed: {e}. Falling back to a safe character truncation.")
+        return raw_context[:60]
+
 def generate_metadata(artist_combo, beat_title):
     """
     Intelligently generates metadata, handling exact matches, reversed artist combinations,
@@ -176,7 +210,7 @@ def generate_metadata(artist_combo, beat_title):
     if artist_combo in ARTIST_TAGS:
         config = ARTIST_TAGS[artist_combo]
     else:
-        # 2. Check for reversed combination (e.g. 'drake x 808 mafia')
+        # 2. Check for reversed combination
         artists = [a.strip() for a in artist_combo.split('x')]
         reversed_combo = " x ".join(reversed(artists))
         
@@ -184,7 +218,7 @@ def generate_metadata(artist_combo, beat_title):
             config = ARTIST_TAGS[reversed_combo]
             print(f"Matched reversed artist combo: '{reversed_combo}'")
         else:
-            # 3. Dynamic Individual Fallback: Collect tags for each artist found in our database
+            # 3. Dynamic Individual Fallback
             collected_tags = set(ARTIST_TAGS["default"]["tags"])
             matched_genres = []
             
@@ -196,7 +230,6 @@ def generate_metadata(artist_combo, beat_title):
                         matched_genres.append(data["genre"])
                         found_match = True
                 
-                # If individual artist isn't explicitly in keys, generate a clean tag dynamically
                 if not found_match and len(artist) > 1:
                     formatted_tag = f"#{artist.title().replace(' ', '')}TypeBeat"
                     collected_tags.add(formatted_tag)
@@ -208,7 +241,15 @@ def generate_metadata(artist_combo, beat_title):
             }
             print(f"Dynamic fallback tags generated for custom combination: '{artist_combo}'")
 
-    title = f"{artist_combo.title()} Type Beat - \"{beat_title}\" | the random stash free beat"
+    # Base raw title string constructed from parsed filename components
+    raw_base_title = f"{artist_combo.title()} Type Beat - \"{beat_title}\""
+    
+    # Pass the raw string through our AI title optimizer (with automatic fallback built-in)
+    print("Optimizing video title with Gemini 2.5 Flash...")
+    optimized_core_title = get_optimized_title(raw_base_title)
+    
+    # Append branding or suffix pipeline requirements cleanly
+    title = f"{optimized_core_title} | the random stash free beat"
     
     description = (
         f"🎧 Stream & download '{beat_title}' ({config['genre']}).\n\n"
@@ -309,7 +350,7 @@ def main():
     download_file(drive_service, chosen_beat['id'], audio_local)
     download_file(drive_service, matched_image['id'], image_local)
 
-    # Generate title, description, and tags dynamically
+    # Generate title, description, and tags dynamically (now with AI title optimization built-in)
     title, description, tags = generate_metadata(artist_combo, beat_title)
 
     # Render video & upload
