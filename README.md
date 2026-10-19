@@ -126,7 +126,7 @@ on:
 ```
 As you can see, the default time is set to run the script daily at 1 AM UTC, cron time is equivalent to 24hr time in UTC, so changing the second cron value to:
 ```
-    - cron: '17 * * *' # means the script will run every day at 17:00 UTC or 5PM every day.
+    - cron: '0 17 * * *' # means the script will run every day at 17:00 UTC or 5PM every day.
 ```
 You can try different cron expressions to choose/skip some days allowing the script to run only on weekdays, bi weekly, or every other day.
 
