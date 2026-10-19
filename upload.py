@@ -178,19 +178,19 @@ def get_optimized_title(raw_context: str) -> str:
     client = genai.Client()
     
     system_instruction = (
-        "You are an expert YouTube SEO engine. Optimize raw video topics or file names "
-        "into high-CTR, click-compelling titles.\n"
+        "You are VidIQ - an expert YouTube SEO engine. Lookup and generate current, optimized YouTube type beat titles from the raw file name"
+        "titles must have high-CTR, & be click-compelling. Artists in the raw file name must be preserved in the title conjoined with an 'x', e.g 'Artist 1' x 'Artist 2'\n"
         "Strict operational rules:\n"
         "1. Length: The final string must be under 60 characters to prevent truncation on mobile screens.\n"
-        "2. Keyword Placement: Position the highest-volume search keyword at the absolute beginning of the title.\n"
-        "3. Engagement: End with a highly engaging psychological trigger, curiosity gap, or hook.\n"
+        "2. Keywords: DO NOT IGNORE any artist on the raw file name, position the highest-volume search keyword (artist) at the absolute beginning of the title.\n"
+        "3. Engagement: End with a short but engaging genre descriptive keyword that tells the viewer mood of the beat, you can infere this from the name of the instrumental.\n"
         "4. Output format: Return ONLY the raw final title text string. Do not wrap it in quotes, do not include markdown, and do not provide conversational text or explanations."
     )
     
     try:
         response = client.models.generate_content(
             model='gemini-3.8-flash',
-            contents=f"Optimize this raw video context: {raw_context}",
+            contents=f"{raw_context}",
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
                 temperature=0.7
@@ -249,10 +249,10 @@ def generate_metadata(artist_combo, beat_title):
     optimized_core_title = get_optimized_title(raw_base_title)
     
     # Append branding or suffix pipeline requirements cleanly
-    title = f"{optimized_core_title} | the random stash free beat"
+    title = f"{optimized_core_title}"
     
     description = (
-        f"🎧 Stream & download '{beat_title}' ({config['genre']}).\n\n"
+        f"🎧'{beat_title}' ({config['genre']}).\n\n"
         f"Produced by $oulesssK.\n"
         f"📩 For leasing or custom beats: dm @soulesssk on IG or @1soulesssk on tiktok.\n\n"
         f"{' '.join(config['tags'])}"
@@ -289,7 +289,7 @@ def upload_to_youtube(youtube_service, video_path, title, description, tags):
             "categoryId": "10"  # Music category
         },
         "status": {
-            "privacyStatus": "private"  # Change to "unlisted" or "private" if testing first
+            "privacyStatus": "public"  # Change to "unlisted" or "private" if testing first
         }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
@@ -359,7 +359,7 @@ def main():
     upload_to_youtube(youtube_service, output_video, title, description, tags)
 
     # Clean up posted beat from Drive
-    # delete_drive_file(drive_service, chosen_beat['id'])
+    delete_drive_file(drive_service, chosen_beat['id'])
     print("Workflow finished successfully!")
 
 if __name__ == "__main__":
