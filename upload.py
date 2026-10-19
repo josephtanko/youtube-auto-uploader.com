@@ -289,7 +289,7 @@ def upload_to_youtube(youtube_service, video_path, title, description, tags):
             "categoryId": "10"  # Music category
         },
         "status": {
-            "privacyStatus": "public"  # Change to "unlisted" or "private" if testing first
+            "privacyStatus": "private"  # Change to "unlisted" or "private" if testing first
         }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
@@ -359,7 +359,7 @@ def main():
     upload_to_youtube(youtube_service, output_video, title, description, tags)
 
     # Clean up posted beat from Drive
-    delete_drive_file(drive_service, chosen_beat['id'])
+    # delete_drive_file(drive_service, chosen_beat['id'])
     print("Workflow finished successfully!")
 
 if __name__ == "__main__":
