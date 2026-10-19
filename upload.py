@@ -14,9 +14,9 @@ DRIVE_FOLDER_ID = os.environ.get("DRIVE_FOLDER_ID")
 CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 REFRESH_TOKEN = os.environ.get("GOOGLE_REFRESH_TOKEN")
-# GEMINI_API_KEY is automatically picked up by genai.Client()
+# GEMINI_API_KEY -> genai.Client()
 
-# Artist Tag Database (808 Mafia Theme)
+# Artist Tag Database
 ARTIST_TAGS = {
     "808 mafia x moneybagg yo": {
         "tags": [
@@ -154,10 +154,6 @@ def delete_drive_file(service, file_id):
     print(f"Deleted file ID {file_id} from Google Drive.")
 
 def parse_filename(filename):
-    """
-    Parses: '808 mafia x moneybagg yo type beat - Midnight.mp3'
-    Returns: artist_combo ('808 mafia x moneybagg yo'), beat_title ('Midnight')
-    """
     name_without_ext = os.path.splitext(filename)[0]
     
     if " type beat - " in name_without_ext.lower():
@@ -171,10 +167,6 @@ def parse_filename(filename):
     return artist_combo, beat_title
 
 def get_optimized_title(raw_context: str) -> str:
-    """
-    Acts as our automated metadata optimizer. Passes the raw video name or 
-    topic to Gemini 2.5 Flash and returns an optimized, high-CTR YouTube title.
-    """
     client = genai.Client()
     
     system_instruction = (
@@ -202,10 +194,6 @@ def get_optimized_title(raw_context: str) -> str:
         return raw_context[:60]
 
 def generate_metadata(artist_combo, beat_title):
-    """
-    Intelligently generates metadata, handling exact matches, reversed artist combinations,
-    and individual artist fallbacks by mixing tags dynamically under the 808 Mafia theme.
-    """
     # 1. Check for an exact match first
     if artist_combo in ARTIST_TAGS:
         config = ARTIST_TAGS[artist_combo]
@@ -249,10 +237,10 @@ def generate_metadata(artist_combo, beat_title):
     optimized_core_title = get_optimized_title(raw_base_title)
     
     # Append branding or suffix pipeline requirements cleanly
-    title = f"{optimized_core_title}"
+    title = f"(free) {optimized_core_title}"
     
     description = (
-        f"🎧'{beat_title}' ({config['genre']}).\n\n"
+        f"🎧 Name: '{beat_title}' ({config['genre']}).\n\n"
         f"Produced by $oulesssK.\n"
         f"📩 For leasing or custom beats: dm @soulesssk on IG or @1soulesssk on tiktok.\n\n"
         f"{' '.join(config['tags'])}"
@@ -289,7 +277,7 @@ def upload_to_youtube(youtube_service, video_path, title, description, tags):
             "categoryId": "10"  # Music category
         },
         "status": {
-            "privacyStatus": "public"  # Change to "unlisted" or "private" if testing first
+            "privacyStatus": "public"  # "unlisted" | "private"
         }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
@@ -306,7 +294,6 @@ def main():
     
     audio_files = [f for f in files if f['name'].lower().endswith(('.mp3', '.wav', '.m4a'))]
     
-    # Collect images into lists grouped by base name (supports variant naming like v1, v2)
     image_files = {}
     for f in files:
         if f['name'].lower().endswith(('.jpg', '.jpeg', '.png')):
