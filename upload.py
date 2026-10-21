@@ -179,7 +179,7 @@ def get_optimized_title(raw_context: str) -> str:
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemini-3.8-flash',
             contents=f"{raw_context}",
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
@@ -228,7 +228,7 @@ def generate_metadata(artist_combo, beat_title):
     raw_base_title = f"{artist_combo.title()} Type Beat - {beat_title}"
     
 
-    print("Optimizing video title with Gemini 2.5 Flash...")
+    print("Optimizing video title with Gemini 3.8 Flash...")
     optimized_core_title = get_optimized_title(raw_base_title)
     
 
