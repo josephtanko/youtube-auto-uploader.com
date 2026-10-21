@@ -179,7 +179,7 @@ def get_optimized_title(raw_context: str) -> str:
     
     try:
         response = client.models.generate_content(
-            model='gemini-3.8-flash',
+            model='gemini-2.5-flash',
             contents=f"{raw_context}",
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
@@ -225,7 +225,7 @@ def generate_metadata(artist_combo, beat_title):
             print(f"Dynamic fallback tags generated for custom combination: '{artist_combo}'")
 
 
-    raw_base_title = f"{artist_combo.title()} Type Beat - \"{beat_title}\""
+    raw_base_title = f"{artist_combo.title()} Type Beat - {beat_title}"
     
 
     print("Optimizing video title with Gemini 2.5 Flash...")
@@ -309,23 +309,23 @@ def main():
     artist_combo, beat_title = parse_filename(chosen_beat['name'])
     print(f"Detected Artist Combo: {artist_combo} | Beat Title: {beat_title}")
 
-
+    all_images = [f for f in files if f['name'].lower().endswith(('.jpg', '.jpeg', '.png'))]
+    
     matching_variants = [
-        img for key, img_list in image_files.items() if key.startswith(artist_combo) for img in img_list
+        img for img in all_images 
+        if img['name'].lower().startswith(artist_combo.lower())
     ]
 
     if matching_variants:
         matched_image = random.choice(matching_variants)
-        print(f"Matched variant cover art for '{artist_combo}' (Selected: {matched_image['name']})")
-    elif image_files:
-
-        all_images = [img for sublist in image_files.values() for img in sublist]
-        matched_image = random.choice(all_images)
+        print(f"Found {len(matching_variants)} variant(s) for '{artist_combo}'. Randomly picked: {matched_image['name']}")
+    elif all_images:
+        all_flat_images = [img for sublist in image_files.values() for img in sublist]
+        matched_image = random.choice(all_flat_images)
         print(f"Exact prefix match for '{artist_combo}' not found. Using fallback image: {matched_image['name']}")
     else:
         print("Error: No images found in Google Drive folder.")
         return
-
 
     audio_local = "input_audio.mp3"
     image_local = "input_image.jpg"
